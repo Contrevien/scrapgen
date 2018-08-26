@@ -2,6 +2,10 @@ html, body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+     -ms-user-select: none;
+         user-select: none;
 }
 
 @font-face {
@@ -64,6 +68,8 @@ html, body {
     background-color: #eee;
     box-shadow: 5px 15px 40px 1px rgba(0, 0, 0, 0.1);
     overflow: scroll;
+    padding-top: 30px;
+    position: relative;
 }
 
 #display-area::-webkit-scrollbar {
@@ -85,15 +91,93 @@ html, body {
 }
 
 .button {
-   margin: 10px auto;
-   height: 100px;
-   width: 95%;
-   background-color: white;
-   cursor: pointer;
+    margin: 10px auto;
+    height: 100px;
+    width: 95%;
+    background-color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .button:hover {
     box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+}
+
+.button-para-container {
+    font-family: "Raleway";
+    width: 80%;
+    color: #aaa;
+    font-size: 10pt;
+    padding: 20px 0px;
+    overflow: hidden;
+}
+
+.button-head {
+    font-family: "Raleway-bold";
+    width: 20%;
+}
+
+.button-para {
+    margin-right: 30px;
+}
+
+.selected {
+    color: white;
+    background-color: rgba(0 ,0 ,0 ,0.85);
+    box-shadow: inset 0px 0px 4px rgba(0 ,0 ,0 ,0.2);
+}
+
+#loader-container {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+#loader {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-top: 5px solid #555;
+    border-left: 5px solid #555;
+    border-bottom: 5px solid #555;
+    border-right: 5px solid transparent;
+    transform: rotate(0deg);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(70deg);
+    }
+    60% {
+        transform: rotate(290deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+#reset {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
 }
 
 @media screen and (max-width : 900px)
