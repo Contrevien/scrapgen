@@ -39,7 +39,7 @@ html, body {
     height: 30%;
     width: 25%;
     background-color: #eee;
-    box-shadow: 5px 15px 40px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 #url-input {
@@ -62,31 +62,31 @@ html, body {
     visibility: hidden;
 }
 
-#display-area {
+.large-containers {
     height: 97%;
     width: 35%;
     background-color: #eee;
-    box-shadow: 5px 15px 40px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 15px 40px 1px rgba(0, 0, 0, 0.1);
     overflow: scroll;
     padding-top: 30px;
     position: relative;
 }
 
-#display-area::-webkit-scrollbar {
+.large-containers::-webkit-scrollbar {
     width: 4px;
     right: 10px;
 }
 
-#display-area::-webkit-scrollbar-track { 
+.large-containers::-webkit-scrollbar-track { 
     border-radius: 10px;
 }
 
-#display-area::-webkit-scrollbar-thumb {
+.large-containers::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: rgba(0 ,0 ,0 ,0.2);
 }
 
-#display-area::-webkit-scrollbar-corner {
+.large-containers::-webkit-scrollbar-corner {
     display: none;
 }
 
@@ -185,4 +185,15 @@ html, body {
   #url-input-container, #url-input{
     font-size: 8pt;
   }
+}
+
+#generation-area {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#filename {
+    font-family: "Raleway-bold", monospace;
 }
