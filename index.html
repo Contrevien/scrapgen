@@ -4,20 +4,31 @@
     <meta charset="UTF-8">
     <title>ScrapGen</title>
     <link rel="stylesheet" href="style.css">
+    <script src="dev/codemirror-5.40.0/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="dev/codemirror-5.40.0/lib/codemirror.css">
+    <script src="dev/codemirror-5.40.0/mode/python/python.js"></script>
   </head>
   <body>
     <div id="main">
+      
       <div id="url-input-container">
         <input id="url-input" type="text" placeholder="Enter URL" spellcheck="false" />
         <span id="status">Please Enter a Valid URL</span>
       </div>
-      <div id="display-area">
+      
+      <div id="display-area" class="large-containers">
         <img src="./assets/images/reset.png" alt="R" id="reset" title="Reset Selection">
       </div>
+
+      <div id="generation-area" class="large-containers">
+        <span id="filename">xyz.py</span>
+      </div>
+
       <div id="loader-container">
         <div id="loader"></div>
       </div>
+    
     </div>
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
   </body>
 </html>
