@@ -98,3 +98,8 @@ document.getElementById("reset").addEventListener("click", () => {
         buttons[i].classList.remove("selected");
     }
 })
+
+var pythonEditor = CodeMirror(document.getElementById("generation-area"), {
+    value: "import selenium.webdriver from selenium\n",
+    mode: "python"
+})
