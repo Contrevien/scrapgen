@@ -78,6 +78,12 @@ for (var i = 0; i < buttonsText.length; i++) {
     newButton.addEventListener("click", select)
 }
 
+
+var pythonEditor = CodeMirror(document.getElementById("generation-area"), {
+    value: "import selenium.webdriver from selenium\n",
+    mode: "python"
+})
+
 function select(e) {
     var target = null;
     if(e.target.parentNode.className === "button"||e.target.parentNode.className === "button selected"){
@@ -89,17 +95,7 @@ function select(e) {
     else if(e.target.className === "button"||e.target.className === "button selected"){
         target = e.target;
     }
-    target.classList.toggle("selected");
+
+    var x = target.innerText.split('\n').join(' ');
+    pythonEditor.replaceRange('\n#' + x + '\n' + 'Some random text\n', CodeMirror.Pos(pythonEditor.lastLine()));
 }
-
-document.getElementById("reset").addEventListener("click", () => {
-    var buttons = document.querySelectorAll(".button");
-    for (var i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove("selected");
-    }
-})
-
-var pythonEditor = CodeMirror(document.getElementById("generation-area"), {
-    value: "import selenium.webdriver from selenium\n",
-    mode: "python"
-})
