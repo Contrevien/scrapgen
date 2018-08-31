@@ -68,7 +68,7 @@ html, body {
     background-color: #eee;
     box-shadow: 0px 15px 40px 1px rgba(0, 0, 0, 0.1);
     overflow: scroll;
-    padding-top: 30px;
+    padding-top: 10px;
     position: relative;
 }
 
@@ -105,6 +105,13 @@ html, body {
 
 .button:hover {
     box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+    transform: scale(1.03);
+    transition: transform 0.1s ease-out;
+}
+
+.button:active {
+    transform: scale(1.05);
+    transition: transform 0.1s ease-out;
 }
 
 .button-para-container {
@@ -123,12 +130,6 @@ html, body {
 
 .button-para {
     margin-right: 30px;
-}
-
-.selected {
-    color: white;
-    background-color: rgba(0 ,0 ,0 ,0.85);
-    box-shadow: inset 0px 0px 4px rgba(0 ,0 ,0 ,0.2);
 }
 
 #loader-container {
@@ -169,15 +170,6 @@ html, body {
     100%{
         transform: rotate(360deg);
     }
-}
-
-#reset {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    right: 15px;
-    top: 10px;
-    cursor: pointer;
 }
 
 @media screen and (max-width : 900px)
