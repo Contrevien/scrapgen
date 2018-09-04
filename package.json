@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "A minimal Electron application",
   "main": "main.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dev/"
+    ]
+  },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "jest"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -17,6 +24,7 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.0"
+    "electron": "^2.0.0",
+    "jest": "^23.5.0"
   }
 }
