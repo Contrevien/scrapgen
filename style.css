@@ -126,6 +126,7 @@ html, body {
 .button-head {
     font-family: "Raleway-bold";
     width: 20%;
+    flex: 1 0 30%;
 }
 
 .button-para {
