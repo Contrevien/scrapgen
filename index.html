@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>ScrapGen</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="dev/codemirror-5.40.0/lib/codemirror.js"></script>
-    <link rel="stylesheet" href="dev/codemirror-5.40.0/lib/codemirror.css">
-    <script src="dev/codemirror-5.40.0/mode/python/python.js"></script>
-  </head>
-  <body>
-    <div id="main">
-      
-      <div id="url-input-container">
-        <input id="url-input" type="text" placeholder="Enter URL" spellcheck="false" />
-        <span id="status">Please Enter a Valid URL</span>
-      </div>
-      
-      <div id="display-area" class="large-containers">
-      </div>
 
-      <div id="generation-area" class="large-containers">
-        <span id="filename">xyz.py</span>
-      </div>
+<head>
+	<meta charset="UTF-8">
+	<title>ScrapGen</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="dev/codemirror-5.40.0/lib/codemirror.js"></script>
+	<link rel="stylesheet" href="dev/codemirror-5.40.0/lib/codemirror.css">
+	<link rel="stylesheet" href="dev/codemirror-5.40.0/theme/shadowfox.css">
+	<script src="dev/codemirror-5.40.0/mode/python/python.js"></script>
+</head>
 
-      <div id="loader-container">
-        <div id="loader"></div>
-      </div>
-    
-    </div>
-    <script src="script.js"></script>
-  </body>
+<body>
+	<div id="main">
+
+		<div id="left">
+			<div id="url-input-container">
+				<input id="url-input" type="text" placeholder="Enter URL" spellcheck="false" />
+				<span id="status">Please Enter a Valid URL</span>
+			</div>
+
+			<div id="navigation">
+				<ul style="list-style: none; padding: 0; margin:10px auto; width: 94%;">
+					<li class="navs" data-name="elements"><span>Web Elements</span><span style="float: right;">--</span></li>
+					<li class="navs" data-name="tables"><span>Tables</span><span style="float: right;">--</span></li>
+					<li class="navs" data-name="links"><span>Links</span><span style="float: right;">--</span></li>
+					<li class="navs" data-name="images"><span>Images</span><span style="float: right;">--</span></li>
+					<li class="navs" data-name="others"><span>Other Files</span><span style="float: right;">--</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="display-area" class="large-containers">
+		</div>
+
+		<div id="generation-area" class="large-containers">
+			<span id="filename">website-scraper.py</span>
+		</div>
+
+		<div id="loader-container">
+			<div id="loader"></div>
+			<span>Fetching Content, this may take time depending on your system...</span>
+		</div>
+
+	</div>
+	<script src="script.js"></script>
+	<script src="renderer.js"></script>
+</body>
+
 </html>
