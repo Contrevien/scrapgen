@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "electron .",
-    "test": "jest"
+    "test": "jest",
+    "babel": "babel --presets es2015 script.js -o build/main.bundle.js"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -24,7 +25,13 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "electron": "^3.0.3",
     "jest": "^23.5.0"
+  },
+  "dependencies": {
+    "python-shell": "^1.0.6"
   }
 }
