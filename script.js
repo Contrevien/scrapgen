@@ -7,7 +7,7 @@ const navs = document.querySelectorAll(".navs");
 let URL = ""
 
 const pythonEditor = CodeMirror(document.getElementById("generation-area"), {
-	value: "import selenium.webdriver from selenium\n",
+	value: "from selenium import webdriver\nfrom selenium.webdriver.chrome.options import Options\n\n\nch = os.getcwd() + '/python/tools/chromedriver'\noptions = Options()\noptions.set_headless(headless=True)\noptions.add_argument('--disable-gpu')\noptions.add_argument('--disable-dev-shm-usage')\noptions.add_argument('--no-sandbox')\ndriver = webdriver.Chrome(options=options, executable_path=ch)",
 	mode: "python",
 	lineNumbers: true,
 	theme: "shadowfox"
@@ -75,6 +75,8 @@ const switchDisplay = (e) => {
 	else
 		target = e.target;
 	currentDisplay = target.getAttribute("data-name");
+	buttonsText = webContent[currentDisplay];
+	renderButtons(buttonsText);
 	target.classList.add("hovered");
 }
 
@@ -94,11 +96,12 @@ const submitURL = (e) => {
 			isLoading = false
 			loader.style.display = "none";
 			webContent = message;
+			buttonsText = webContent["elements"]
 			renderButtons(buttonsText);
 			navs[0].classList.add("hovered");
 			navs.forEach((nav) => {
 				nav.addEventListener("click", switchDisplay)
-				nav.childNodes[1].innerText = webContent[nav.getAttribute("data-name")]
+				nav.childNodes[1].innerText = webContent[nav.getAttribute("data-name")].length
 			})
 		})
 	}
@@ -152,6 +155,8 @@ function selectButton(e) {
 		target = e.target;
 	}
 
-	var x = target.innerText.split('\n').join(' ');
-	pythonEditor.replaceRange('\n#' + x + '\n' + 'Some random text\n', CodeMirror.Pos(pythonEditor.lastLine()));
+	var x = target.innerText.split('\n')[1];
+	var p = x.split("=")[1];
+	var text = "\ndriver.find_element_by_xpath('" + p + "')";
+	pythonEditor.replaceRange(text, CodeMirror.Pos(pythonEditor.lastLine()));
 }

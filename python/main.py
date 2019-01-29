@@ -200,8 +200,38 @@ class Webpage(object):
         images = self.driver.find_elements_by_tag_name("img")
         image_urls = []
         for img in images:
-            image_urls.append(img.get_attribute('src'))
-        return image_urls
+            xp = self.driver.execute_script("""gPt=function(c){
+                                 if(c.id!==''){
+                                     return'id("'+c.id+'")'
+                                 } 
+                                 if(c===document.body){
+                                     return c.tagName
+                                 }
+                                 var a=0;
+                                 var e=c.parentNode.childNodes;
+                                 for(var b=0;b<e.length;b++){
+                                     var d=e[b];
+                                     if(d===c){
+                                         return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'
+                                     }
+                                     if(d.nodeType===1&&d.tagName===c.tagName){
+                                         a++
+                                     }
+                                 }
+                             };
+                             return gPt(arguments[0]).toLowerCase();""", img)
+            attr = self.driver.execute_script('var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;', img)
+            one_attr = ""
+            for key,val in attr.items():
+                one_attr = str(key) + "=" + str(val)
+                break
+            image_urls.append(["src=" + img.get_attribute('src'), "xpath=" + xp, one_attr])
+
+        imgs = []
+        for x in image_urls:
+            imgs.append({"img": x})
+
+        return imgs
 
         # try:
         #     os.mkdir(find_last_name(self.url) + "-images")
@@ -214,39 +244,103 @@ class Webpage(object):
         #         src, "./" + find_last_name(self.url) + "-images/" + find_last_name(src))
         #     index += 1
 
+    def get_elements(self):
+        els = self.driver.find_elements_by_css_selector("*")
+        elements = []
+        flag = True
+        for el in els:
+            tg_name = el.tag_name
+            if tg_name == "body":
+                flag = False
+            if flag or tg_name in ["br","hr"]:
+                continue
+            temp = {tg_name: []}
+            xp = self.driver.execute_script("""gPt=function(c){
+                                 if(c.id!==''){
+                                     return'id("'+c.id+'")'
+                                 } 
+                                 if(c===document.body){
+                                     return c.tagName
+                                 }
+                                 var a=0;
+                                 var e=c.parentNode.childNodes;
+                                 for(var b=0;b<e.length;b++){
+                                     var d=e[b];
+                                     if(d===c){
+                                         return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'
+                                     }
+                                     if(d.nodeType===1&&d.tagName===c.tagName){
+                                         a++
+                                     }
+                                 }
+                             };
+                             return gPt(arguments[0]).toLowerCase();""", el)
+            temp[tg_name].append("xpath=" + str(xp))
+
+            attr = self.driver.execute_script('var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;', el)
+            i = 0
+            for key,val in attr.items():
+                if i == 2:
+                    break
+                one_attr = str(key) + "=" + str(val)
+                temp[tg_name].append(one_attr)
+                i += 1
+            elements.append(temp)
+        return elements
+
+    def get_tables(self):
+        tables = self.driver.find_elements_by_tag_name("table")
+        tbs = []
+        for table in tables:
+            xp = self.driver.execute_script("""gPt=function(c){
+                                 if(c.id!==''){
+                                     return'id("'+c.id+'")'
+                                 } 
+                                 if(c===document.body){
+                                     return c.tagName
+                                 }
+                                 var a=0;
+                                 var e=c.parentNode.childNodes;
+                                 for(var b=0;b<e.length;b++){
+                                     var d=e[b];
+                                     if(d===c){
+                                         return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'
+                                     }
+                                     if(d.nodeType===1&&d.tagName===c.tagName){
+                                         a++
+                                     }
+                                 }
+                             };
+                             return gPt(arguments[0]).toLowerCase();""", table)
+            tbs.append(["xpath=" + xp, "rows:4", "columns:3"])
+
+        tbr = []
+        for x in tbs:
+            tbr.append({"table": x})
+
+        return tbr
+
+
 
 if __name__ == "__main__":
     url = sys.argv[1]
     domain = sys.argv[2]
     obj = Webpage(url, domain)
-    tables = obj.get_tables_as_list()
+    tables = obj.get_tables()
     images = obj.get_images()
-    links = obj.get_links()
+    elements = obj.get_elements()
+    links = []
+    for x in elements:
+        if "a" in x.keys():
+            links.append(x)
 
     result = dict()
 
-    result["elements"] = 0
-    result["tables"] = len(tables)
-    result["images"] = len(images)
-    result["links"] = len(links)
-    result["others"] = 0
-
-    result["element_data"] = ""
-
-    result["table_data"] = dict()
-    for i in range(len(tables)):
-        result["table_data"][str(i)] = ""
-        for row in tables[i]:
-            result["table_data"][str(i)] += " ".join(row) + "\n"
-
-    result["image_data"] = dict()
-    for i in range(len(images)):
-        result["image_data"][str(i)] = images[i]
-
-    result["link_data"] = dict()
-    for i in range(len(links)):
-        result["link_data"][str(i)] = links[i]
-
-    result["other_data"] = ""
+    result["elements"] = elements
+    result["tables"] = tables
+    result["images"] = images
+    result["links"] = links
+    result["others"] = []
 
     print(json.dumps(result))
+    
